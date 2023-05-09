@@ -5,12 +5,16 @@ import kr.hs.dgsw.towerofhanoi.domain.cleartime.dto.ClearTimeInsertDTO;
 import kr.hs.dgsw.towerofhanoi.domain.cleartime.dto.ClearTimeResponseDTO;
 import kr.hs.dgsw.towerofhanoi.domain.cleartime.mapper.ClearTimeMapper;
 import kr.hs.dgsw.towerofhanoi.domain.cleartime.repository.ClearTimeRepository;
+import kr.hs.dgsw.towerofhanoi.domain.member.Member;
+import kr.hs.dgsw.towerofhanoi.domain.member.repository.MemberRepository;
+import kr.hs.dgsw.towerofhanoi.global.error.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.print.Pageable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +24,7 @@ import java.util.List;
 public class ClearTimeServiceImpl implements ClearTimeService {
 
     private final ClearTimeRepository clearTimeRepository;
+    private final MemberRepository memberRepository;
     private final ClearTimeMapper mapper;
 
     @Override
@@ -38,11 +43,30 @@ public class ClearTimeServiceImpl implements ClearTimeService {
 
         log.info("clearTime service selectByClearTime 실행");
 
-        return null;
+        List<ClearTime> clearTimeList = clearTimeRepository.findByClearTime(pageable);
+        ArrayList<ClearTimeResponseDTO> clearTimeResponseList = new ArrayList<>();
+
+        for (ClearTime clearTime : clearTimeList) {
+            clearTimeResponseList.add(mapper.clearTimeToClearTimeResponseDTO(clearTime));
+        }
+
+        return clearTimeResponseList;
     }
 
     @Override
     public List<ClearTimeResponseDTO> selectByMember(Long memberId) {
-        return null;
+
+        log.info("clearTime service selectByMember 실행");
+
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NotFoundException("member"));
+
+        List<ClearTime> clearTimeList = clearTimeRepository.findByMember(member);
+        ArrayList<ClearTimeResponseDTO> clearTimeResponseList = new ArrayList<>();
+
+        for (ClearTime clearTime : clearTimeList) {
+            clearTimeResponseList.add(mapper.clearTimeToClearTimeResponseDTO(clearTime));
+        }
+
+        return clearTimeResponseList;
     }
 }
