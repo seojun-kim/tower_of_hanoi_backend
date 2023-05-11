@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ClearTimeRepository extends JpaRepository<ClearTime, Long> {
 
-    @Query("select c from ClearTime c join fetch c.member order by c.clear_time ASC")
+    @Query("select c from ClearTime c join fetch c.member")
     List<ClearTime> findByClearTime(Pageable pageable);
 
     List<ClearTime> findByMember(Member member);
