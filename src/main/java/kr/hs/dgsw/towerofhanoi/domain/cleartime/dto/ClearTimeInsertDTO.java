@@ -13,11 +13,15 @@ public class ClearTimeInsertDTO {
     private int clearTime;
 
     @NotNull
-    private Member member;
+    private int stage;
+
+    @NotNull
+    private Long memberNid;
 
     @Builder
-    public ClearTimeInsertDTO(int clearTime, Member member) {
+    public ClearTimeInsertDTO(int clearTime, int stage,Long memberNid) {
         this.clearTime = clearTime;
-        this.member = member;
+        this.stage = stage;
+        this.memberNid = memberNid;
     }
 }

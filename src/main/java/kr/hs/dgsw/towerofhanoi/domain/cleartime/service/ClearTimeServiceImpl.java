@@ -10,10 +10,10 @@ import kr.hs.dgsw.towerofhanoi.domain.member.repository.MemberRepository;
 import kr.hs.dgsw.towerofhanoi.global.error.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +39,11 @@ public class ClearTimeServiceImpl implements ClearTimeService {
     }
 
     @Override
-    public List<ClearTimeResponseDTO> selectByClearTime(Pageable pageable) {
+    public List<ClearTimeResponseDTO> findAll(Pageable pageable) {
 
         log.info("clearTime service selectByClearTime 실행");
 
-        List<ClearTime> clearTimeList = clearTimeRepository.findByClearTime(pageable);
+        List<ClearTime> clearTimeList = clearTimeRepository.findAllPageable(pageable);
         ArrayList<ClearTimeResponseDTO> clearTimeResponseList = new ArrayList<>();
 
         for (ClearTime clearTime : clearTimeList) {

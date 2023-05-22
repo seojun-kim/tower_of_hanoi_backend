@@ -23,6 +23,9 @@ public class ClearTime {
     @Column(name = "clear_time")
     private int clearTime;
 
+    @NotNull
+    private int stage;
+
     @CreatedDate
     private LocalDateTime createDate;
 
@@ -31,11 +34,12 @@ public class ClearTime {
     private Member member;
 
     @Builder
-    public ClearTime(int clearTime, Member member) {
+    public ClearTime(int clearTime, int stage, Member member) {
         this.clearTime = clearTime;
-        this.member = member;
+        this.stage = stage;
 
-        this.member.getClearTimeList().add(this); //연관관계 편의
+        this.member = member;
+        member.getClearTimeList().add(this); //연관관계 편의
     }
 
 }
