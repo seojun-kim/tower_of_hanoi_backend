@@ -4,6 +4,11 @@ spring:
     username: sa
     password: 1
     driver-class-name: org.h2.Driver
+    data: classpath:data.sql
+    initialization-mode: always
+  sql:
+    init:
+      mode: always
 
   jpa:
     hibernate:
@@ -12,8 +17,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    defer-datasource-initialization: true
 
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+jwt:
+  secretKey: '123456789012345678901234567890123456789012345678901234567890123456'
+  refreshKey: '123456789012345678901234567890123456789012345678901234567890123456'
