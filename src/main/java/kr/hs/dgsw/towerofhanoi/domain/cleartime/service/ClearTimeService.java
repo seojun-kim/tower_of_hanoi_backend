@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface ClearTimeService {
 
-    public ClearTimeResponseDTO insert(ClearTimeInsertDTO clearTimeInsertDTO);
+    public ClearTimeResponseDTO insert(Long memberId, ClearTimeInsertDTO clearTimeInsertDTO);
     public List<ClearTimeResponseDTO> findAll(Pageable pageable);
     public List<ClearTimeResponseDTO> selectByMember(Long memberId);
+
+    List<ClearTimeResponseDTO> selectByStage(int stage, Pageable pageable);
 }

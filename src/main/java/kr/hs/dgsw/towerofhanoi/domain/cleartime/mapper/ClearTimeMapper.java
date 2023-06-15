@@ -6,6 +6,6 @@ import kr.hs.dgsw.towerofhanoi.domain.cleartime.dto.ClearTimeResponseDTO;
 
 public interface ClearTimeMapper {
 
-    ClearTime clearTimeInsertDTOToClearTime(ClearTimeInsertDTO clearTimeInsertDTO);
+    ClearTime clearTimeInsertDTOToClearTime(Long memberId, ClearTimeInsertDTO clearTimeInsertDTO);
     ClearTimeResponseDTO clearTimeToClearTimeResponseDTO(ClearTime clearTime);
 }

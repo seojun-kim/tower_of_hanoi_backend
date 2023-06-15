@@ -16,9 +16,9 @@ public class ClearTimeMapperImpl implements ClearTimeMapper {
     private final MemberRepository memberRepository;
 
     @Override
-    public ClearTime clearTimeInsertDTOToClearTime(ClearTimeInsertDTO clearTimeInsertDTO) {
+    public ClearTime clearTimeInsertDTOToClearTime(Long memberId, ClearTimeInsertDTO clearTimeInsertDTO) {
 
-        Member member = memberRepository.findById(clearTimeInsertDTO.getMemberNid()).orElseThrow(() -> new NotFoundException("member"));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NotFoundException("member"));
 
         return ClearTime.builder()
                 .clearTime(clearTimeInsertDTO.getClearTime())
@@ -34,7 +34,6 @@ public class ClearTimeMapperImpl implements ClearTimeMapper {
                 .clearTime(clearTime.getClearTime())
                 .stage(clearTime.getStage())
                 .createdDate(clearTime.getCreateDate())
-                .member(clearTime.getMember())
                 .build();
     }
 }

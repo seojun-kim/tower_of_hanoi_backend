@@ -28,11 +28,11 @@ public class ClearTimeServiceImpl implements ClearTimeService {
     private final ClearTimeMapper mapper;
 
     @Override
-    public ClearTimeResponseDTO insert(ClearTimeInsertDTO clearTimeInsertDTO) {
+    public ClearTimeResponseDTO insert(Long memberId, ClearTimeInsertDTO clearTimeInsertDTO) {
 
         log.info("clearTime service insert 실행, clearTimeInsertDTO : {}", clearTimeInsertDTO);
 
-        ClearTime clearTime = mapper.clearTimeInsertDTOToClearTime(clearTimeInsertDTO);
+        ClearTime clearTime = mapper.clearTimeInsertDTOToClearTime(memberId, clearTimeInsertDTO);
         clearTimeRepository.save(clearTime);
 
         return mapper.clearTimeToClearTimeResponseDTO(clearTime);
@@ -68,5 +68,20 @@ public class ClearTimeServiceImpl implements ClearTimeService {
         }
 
         return clearTimeResponseList;
+    }
+
+    @Override
+    public List<ClearTimeResponseDTO> selectByStage(int stage, Pageable pageable) {
+
+        log.info("clearTime service selectByStage 실행");
+
+        List<ClearTime> clearTimeList = clearTimeRepository.findByStage(stage, pageable);
+        ArrayList<ClearTimeResponseDTO> clearTimeResponseDTOList = new ArrayList<>();
+
+        clearTimeList.forEach(clearTime -> {
+            clearTimeResponseDTOList.add(mapper.clearTimeToClearTimeResponseDTO(clearTime));
+        });
+
+        return clearTimeResponseDTOList;
     }
 }

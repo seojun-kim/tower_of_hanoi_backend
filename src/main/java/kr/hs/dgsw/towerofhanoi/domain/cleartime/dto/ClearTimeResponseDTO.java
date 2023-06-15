@@ -6,7 +6,9 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @ToString
 public class ClearTimeResponseDTO {
 
@@ -16,13 +18,4 @@ public class ClearTimeResponseDTO {
 
     private LocalDateTime createdDate;
 
-    private Member member;
-
-    @Builder
-    public ClearTimeResponseDTO(int clearTime, int stage,LocalDateTime createdDate, Member member) {
-        this.clearTime = clearTime;
-        this.stage = stage;
-        this.createdDate = createdDate;
-        this.member = member;
-    }
 }

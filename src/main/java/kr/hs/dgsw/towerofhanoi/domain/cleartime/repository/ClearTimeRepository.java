@@ -14,4 +14,6 @@ public interface ClearTimeRepository extends JpaRepository<ClearTime, Long> {
     List<ClearTime> findAllPageable(Pageable pageable);
 
     List<ClearTime> findByMember(Member member);
+
+    List<ClearTime> findByStage(int stage, Pageable pageable);
 }

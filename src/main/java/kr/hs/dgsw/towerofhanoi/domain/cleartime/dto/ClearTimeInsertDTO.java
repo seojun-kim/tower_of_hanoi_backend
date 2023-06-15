@@ -1,11 +1,12 @@
 package kr.hs.dgsw.towerofhanoi.domain.cleartime.dto;
 
 import jakarta.validation.constraints.NotNull;
-import kr.hs.dgsw.towerofhanoi.domain.member.Member;
 import lombok.*;
 
 @Getter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @ToString
 public class ClearTimeInsertDTO {
 
@@ -15,13 +16,4 @@ public class ClearTimeInsertDTO {
     @NotNull
     private int stage;
 
-    @NotNull
-    private Long memberNid;
-
-    @Builder
-    public ClearTimeInsertDTO(int clearTime, int stage,Long memberNid) {
-        this.clearTime = clearTime;
-        this.stage = stage;
-        this.memberNid = memberNid;
-    }
 }
