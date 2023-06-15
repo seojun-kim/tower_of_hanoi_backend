@@ -7,10 +7,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @ToString
-public class MemberResponseDTO {
+public class MemberLoginResponseDTO {
 
-    private Long id;
+    private String accessToken;
+
+    private String refreshToken;
+
+    private Long memberId;
 
     private String username;
-
 }

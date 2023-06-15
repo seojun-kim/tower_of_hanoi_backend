@@ -1,13 +1,11 @@
 package kr.hs.dgsw.towerofhanoi.domain.member.service;
 
-import kr.hs.dgsw.towerofhanoi.domain.member.Member;
 import kr.hs.dgsw.towerofhanoi.domain.member.dto.MemberInsertDTO;
 import kr.hs.dgsw.towerofhanoi.domain.member.dto.MemberResponseDTO;
 import kr.hs.dgsw.towerofhanoi.domain.member.dto.MemberUpdateDTO;
 import kr.hs.dgsw.towerofhanoi.domain.member.repository.MemberRepository;
 import kr.hs.dgsw.towerofhanoi.global.error.DuplicateNameException;
 import kr.hs.dgsw.towerofhanoi.global.error.NotFoundException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,7 @@ class MemberServiceImplTest {
     public void 회원가입() throws Exception {
         //given
         MemberInsertDTO memberInsertDTO = MemberInsertDTO.builder()
-                .id("asd")
+                .username("asd")
                 .password("asd")
                 .build();
 
@@ -41,7 +39,7 @@ class MemberServiceImplTest {
         MemberResponseDTO memberResponseDTO = memberService.insert(memberInsertDTO);
 
         //then
-        assertThat(memberInsertDTO.getId()).isEqualTo(memberResponseDTO.getId());
+        assertThat(memberInsertDTO.getUsername()).isEqualTo(memberResponseDTO.getId());
 
     }
 
@@ -51,7 +49,7 @@ class MemberServiceImplTest {
         MemberResponseDTO memberResponseDTO = createMember();
 
         MemberInsertDTO memberInsertDTO = MemberInsertDTO.builder()
-                .id(memberResponseDTO.getId())
+                .username(memberResponseDTO.getUsername())
                 .password(password)
                 .build();
 
@@ -71,8 +69,8 @@ class MemberServiceImplTest {
         MemberResponseDTO memberResponseDTO = createMember();
 
         MemberUpdateDTO memberUpdateDTO = MemberUpdateDTO.builder()
-                .nid(memberResponseDTO.getNid())
-                .id("jun")
+                .id(memberResponseDTO.getId())
+                .username("jun")
                 .password("seo")
                 .build();
 
@@ -92,8 +90,8 @@ class MemberServiceImplTest {
         MemberResponseDTO memberResponseDTO = createMember();
 
         MemberUpdateDTO memberUpdateDTO = MemberUpdateDTO.builder()
-                .nid(memberResponseDTO.getNid())
                 .id(memberResponseDTO.getId())
+                .username(memberResponseDTO.getUsername())
                 .password("123")
                 .build();
 
@@ -112,8 +110,8 @@ class MemberServiceImplTest {
     public void 수정_오류1() throws Exception {
         //given
         MemberUpdateDTO memberUpdateDTO = MemberUpdateDTO.builder()
-                .nid(0L)
-                .id(id)
+                .id(0L)
+                .username(id)
                 .password(password)
                 .build();
 
@@ -134,9 +132,9 @@ class MemberServiceImplTest {
         MemberResponseDTO memberResponseDTO2 = createMember(id + "1", password + "1");
 
         MemberUpdateDTO memberUpdateDTO = MemberUpdateDTO.builder()
-                .nid(memberResponseDTO1.getNid())
-                .id(memberResponseDTO2.getId())
-                .password(memberResponseDTO1.getId())
+                .id(memberResponseDTO1.getId())
+                .username(memberResponseDTO2.getUsername())
+                .password(memberResponseDTO1.getUsername())
                 .build();
 
         //then
@@ -152,10 +150,10 @@ class MemberServiceImplTest {
         MemberResponseDTO memberResponseDTO = createMember();
 
         //when
-        Long memberId = memberService.delete(memberResponseDTO.getNid());
+        Long memberId = memberService.delete(memberResponseDTO.getId());
 
         //then
-        assertThat(memberResponseDTO.getNid()).isEqualTo(memberId);
+        assertThat(memberResponseDTO.getId()).isEqualTo(memberId);
 
     }
 
@@ -173,7 +171,7 @@ class MemberServiceImplTest {
     private MemberResponseDTO createMember() {
 
         MemberInsertDTO memberInsertDTO = MemberInsertDTO.builder()
-                .id(id)
+                .username(id)
                 .password(password)
                 .build();
 
@@ -183,7 +181,7 @@ class MemberServiceImplTest {
     private MemberResponseDTO createMember(String id, String password) {
 
         MemberInsertDTO memberInsertDTO = MemberInsertDTO.builder()
-                .id(id)
+                .username(id)
                 .password(password)
                 .build();
 

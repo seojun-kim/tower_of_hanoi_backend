@@ -5,23 +5,18 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @ToString
 public class MemberUpdateDTO {
 
     @NotNull
-    private Long nid;
+    private Long id;
 
     @NotBlank(message = "아이디는 공백이 아니어야 합니다.")
-    private String id;
+    private String username;
 
     @NotBlank(message = "비밀번호는 공백이 아니어야 합니다.")
     private String password;
-
-    @Builder
-    public MemberUpdateDTO(Long nid, String id, String password) {
-        this.nid = nid;
-        this.id = id;
-        this.password = password;
-    }
 }
