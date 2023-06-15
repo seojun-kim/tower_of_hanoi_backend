@@ -29,12 +29,12 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     private final JwtUtils jwtUtils;
 
     @Override
-    public RefreshTokenResponseDTO insert(RefreshTokenInsertDTO refreshTokenInsertDTO) {
+    public RefreshToken insert(RefreshTokenInsertDTO refreshTokenInsertDTO) {
 
         RefreshToken refreshToken = mapper.refreshTokenInsertDTOToRefreshToken(refreshTokenInsertDTO);
-        refreshTokenRepository.save(refreshToken);
+        refreshToken = refreshTokenRepository.save(refreshToken);
 
-        return mapper.refreshTokenToRefreshTokenResponseDTO(refreshToken, refreshTokenInsertDTO.getMemberId());
+        return refreshToken;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         RefreshToken refreshToken = refreshTokenRepository.findByToken(refreshTokenIssuedDTO.getToken()).orElseThrow(() -> new RefreshTokenExpirationException(refreshTokenIssuedDTO.getToken()));
         Claims claims = jwtUtils.parseRefreshToken(refreshToken.getToken());
 
-        Long memberId = jwtUtils.getMemberIdFormToken(refreshToken.getToken());
+        Long memberId = Long.valueOf((Integer) claims.get("id"));
 
         List roles = (List) claims.get("roles");
         String username = claims.getSubject();
@@ -52,4 +52,12 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
         return mapper.accessTokenTokenIssuedResponseDTO(accessToken);
     }
+
+    @Override
+    public Long delete(Long refreshTokenId) {
+
+        refreshTokenRepository.deleteById(refreshTokenId);
+        return refreshTokenId;
+    }
+
 }

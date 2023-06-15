@@ -1,6 +1,8 @@
 package kr.hs.dgsw.towerofhanoi.domain.refreshtoken;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import kr.hs.dgsw.towerofhanoi.domain.member.Member;
 import lombok.*;
 
 @Entity
@@ -15,6 +17,10 @@ public class RefreshToken {
     private Long id;
 
     private String token;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "refreshToken")
+    private Member member;
 
     @Builder
     public RefreshToken(String token) {
