@@ -56,8 +56,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/logout")
-    public ResponseEntity logout(@RequestHeader("Authorization") String accessToken, @RequestBody @Valid LogoutDTO logoutDTO) {
-
+    public ResponseEntity logout(@RequestHeader("Authorization") String accessToken) {
 
         memberService.logout(accessToken);
 

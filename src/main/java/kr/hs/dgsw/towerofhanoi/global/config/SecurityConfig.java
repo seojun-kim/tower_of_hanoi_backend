@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .apply(authenticationManagerConfig).and()
                 .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/**").permitAll()
                         .requestMatchers("/members/signup", "/members/login", "/members/issuedToken").permitAll()
                         .requestMatchers("/cleartime/list").permitAll()
                         .requestMatchers("/members/**").hasAnyRole("USER", "MANAGER", "ADMIN")

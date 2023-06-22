@@ -1,4 +1,4 @@
-package kr.hs.dgsw.towerofhanoi.global.handler;
+package kr.hs.dgsw.towerofhanoi.global.error.handler;
 
 import kr.hs.dgsw.towerofhanoi.global.error.DuplicateNameException;
 import kr.hs.dgsw.towerofhanoi.global.error.NotFoundException;

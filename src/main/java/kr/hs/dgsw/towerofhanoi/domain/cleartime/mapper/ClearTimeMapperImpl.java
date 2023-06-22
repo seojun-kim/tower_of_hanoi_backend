@@ -9,6 +9,8 @@ import kr.hs.dgsw.towerofhanoi.global.error.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.format.DateTimeFormatter;
+
 @Component
 @RequiredArgsConstructor
 public class ClearTimeMapperImpl implements ClearTimeMapper {
@@ -31,9 +33,10 @@ public class ClearTimeMapperImpl implements ClearTimeMapper {
     @Override
     public ClearTimeResponseDTO clearTimeToClearTimeResponseDTO(ClearTime clearTime) {
         return ClearTimeResponseDTO.builder()
+                .username(clearTime.getMember().getUsername())
                 .clearTime(clearTime.getClearTime())
                 .stage(clearTime.getStage())
-                .createdDate(clearTime.getCreateDate())
+                .createdDate(clearTime.getCreateDate().format(DateTimeFormatter.ISO_DATE))
                 .build();
     }
 }

@@ -12,10 +12,12 @@ import java.time.LocalDateTime;
 @ToString
 public class ClearTimeResponseDTO {
 
+    private String username;
+
     private int clearTime;
 
     private int stage;
 
-    private LocalDateTime createdDate;
+    private String createdDate;
 
 }
